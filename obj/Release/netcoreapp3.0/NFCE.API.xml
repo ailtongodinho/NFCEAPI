@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NFCE.API</name>
+    </assembly>
+    <members>
+        <member name="T:NFCE.API.Controllers.AuthController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.AuthController.GetAction">
+            <summary>
+            Descrição da API
+            </summary>
+            <returns>Versão atual da API</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.NFCEController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.NFCEController.GetInfo(NFCE.API.Models.ExtracaoRequestModel)">
+            <summary>
+            Retorna informações da NFCE de acordo com a URL
+            </summary>
+            <param name="model">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
+            <returns>Infomações extraídas da NFCE</returns>
+        </member>
+        <member name="M:NFCE.API.Extensions.AttributeExtension.RetornaAtributo``1(System.Type,System.String)">
+            <summary>
+            Retonar o atributo
+            </summary>
+            <param name="tipoClasse">Referencia a tipo(Type) da classe</param>
+            <param name="propriedade">Nome da propriedade. Caso "null", retorna a propriedade da Classe</param>
+            <typeparam name="T">Atributo a retornar</typeparam>
+            <returns>Atributo da propriedade da Classe ou próprio da classe</returns>
+        </member>
+        <member name="M:NFCE.API.Extensions.ExtracaoExtension.RetornaCondicao(System.Nullable{System.Boolean})">
+            <summary>
+            Retorna em String uma condição apra XPath
+            </summary>
+            <param name="condicao">True = "And" | False = "Or"</param>
+            <returns></returns>
+        </member>
+        <member name="M:NFCE.API.Extensions.ExtracaoExtension.RetornaFuncionalidade(System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retorna em String a sintax de "Contains"
+            </summary>
+            <param name="atributo"></param>
+            <param name="valor"></param>
+            <param name="condicao">Condição And ou Or</param>
+            <returns></returns>
+        </member>
+        <member name="M:NFCE.API.Extensions.ExtracaoExtension.RetornaFuncionalidade(System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retorna em String a sintax de "Following"
+            </summary>
+            <param name="tipo">Tipo de funcionalidade</param>
+            <param name="tag">Tag a ser aplicada</param>
+            <param name="filtro">Caso não seja nulo, é aplicado um filtro</param>
+            /// <param name="condicao">Condição And ou Or</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

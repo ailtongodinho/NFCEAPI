@@ -1,0 +1,4 @@
+namespace NFCE.API.Attributes
+{
+
+}
