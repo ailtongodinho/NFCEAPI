@@ -8,6 +8,7 @@ using NFCE.API.Interfaces;
 using NFCE.API.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NFCE.API.Controllers
 {
@@ -37,6 +38,7 @@ namespace NFCE.API.Controllers
         /// </summary>
         /// <param name="model">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
         /// <returns>Infomações extraídas da NFCE</returns>
+        [Authorize("Bearer")]
         [HttpPost("[action]")]
         public IActionResult GetInfo([FromBody] ExtracaoRequestModel model)
         {

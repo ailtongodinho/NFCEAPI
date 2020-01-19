@@ -4,6 +4,6 @@ namespace NFCE.API.Interfaces
 {
     public interface IAuthService : IBaseService<int>
     {
-        string Login(AuthModel usuario);
+        object Login(AuthModel usuario);
     }
 }

@@ -22,7 +22,7 @@ namespace NFCE.API
                 {
                     webBuilder.UseStartup<Startup>();
                     #if !DEBUG
-                    webBuilder.UseUrls("http://0.0.0.0:5000");
+                    // webBuilder.UseUrls("http://0.0.0.0:5000");
                     #endif
                 });
     }
