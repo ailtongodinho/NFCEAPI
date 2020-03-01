@@ -56,7 +56,7 @@ namespace NFCE.API.Controllers
         /// Listar informações sobre as notas fiscais
         /// </summary>
         /// <returns>Informações extraídas da NFCE</returns>
-        [HttpGet("[action]")]    
+        [HttpPost("[action]")]    
         public IActionResult Listar(ExtracaoListarRequest extracaoListarRequest)
         {
             ResponseModel response = new ResponseModel { Sucesso = true, HttpStatus = HttpStatusCode.OK };
