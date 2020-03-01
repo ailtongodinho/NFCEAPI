@@ -14,6 +14,7 @@ namespace NFCE.API.Services
 {
     public class AuthService : IAuthService
     {
+        public static UsuarioModel UsuarioAtual { get; set; }
         private readonly IConfiguration _config;
         private readonly IAuthRepository _authRepository;
         private readonly IUsuarioService _usuarioService;
@@ -57,12 +58,17 @@ namespace NFCE.API.Services
                     //  Usuário é autentico?
                     if (valido)
                     {
+                        //  Atualizando usuário Atual
+                        UsuarioAtual = usuarioBase;
                         //  Criando Token JWT
-                        ClaimsIdentity identity = new ClaimsIdentity(
-                            new GenericIdentity(usuario.Id.ToString(), "Login"),
-                            new[] {
-                                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                                    new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Id.ToString())
+                        ClaimsIdentity identity = new ClaimsIdentity(new Claim[]
+                            // new GenericIdentity(usuario.Login, "Login"),
+                            {
+                                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                                    new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Login),
+                                    new Claim(JwtRegisteredClaimNames.NameId, usuario.Id.ToString()),
+                                    // new Claim(ClaimTypes.Name, usuario.Login),
+                                    new Claim(ClaimTypes.Role, "Admin")
                             }
                         );
 

@@ -2,13 +2,13 @@ using Dapper;
 using Dapper.FluentMap;
 using Dapper.FluentMap.Dommel;
 using Dapper.FluentMap.Dommel.Mapping;
-using Dapper.FluentMap.Mapping;
 using Dommel;
 using Microsoft.Extensions.Configuration;
 using NFCE.API.Extensions;
 using NFCE.API.Interfaces;
 using NFCE.API.Mapping;
 using System;
+using Npgsql;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -19,12 +19,14 @@ namespace NFCE.API.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private string GetConnectionString => _config.GetConnectionString(_config.GetValue<string>("Sql:Connection"));
         private readonly IConfiguration _config;
-
+        private readonly ConnectionRepository<NpgsqlConnection> _connectionRepository;
+        private string WhichConnection => _config.GetValue<string>("Sql:Connection");
+        private string GetConnectionString => _config.GetConnectionString(WhichConnection);
         public BaseRepository(IConfiguration config)
         {
             _config = config;
+            _connectionRepository = new ConnectionRepository<NpgsqlConnection>(config);
             if (FluentMapper.EntityMaps.IsEmpty)
             {
                 FluentMapper.Initialize(config =>
@@ -98,9 +100,9 @@ namespace NFCE.API.Repositories
                     //  Cria SQL
                     string set = string.Join(",", sqlSet);
                     string where = string.Join(" AND ", sqlWhere);
-                    string sql = $"UPDATE X SET {set} FROM {dommelEntityMap.TableName} X WHERE {where}";
+                    string sql = $"UPDATE {dommelEntityMap.TableName} SET {set} WHERE {where}";
                     //  Executa
-                    using (SqlConnection con = new SqlConnection(GetConnectionString))
+                    using (var con = _connectionRepository.GetConnection())
                     {
                         retorno = con.Execute(sql, parameters) > 0;
                     }
@@ -174,7 +176,7 @@ namespace NFCE.API.Repositories
             //  String Final
             string sql = $"SELECT {_top} FROM {dommelEntityMap.TableName} WITH(NOLOCK) {_where} {_group} {_order}";
 
-            using (SqlConnection con = new SqlConnection(GetConnectionString))
+            using (var con = _connectionRepository.GetConnection())
             {
                 retorno = con.Query<TEntity>(sql, parameters);
             }
@@ -184,7 +186,7 @@ namespace NFCE.API.Repositories
 
         public bool Delete(int id)
         {
-            using (SqlConnection con = new SqlConnection(GetConnectionString))
+            using (var con = _connectionRepository.GetConnection())
             {
                 return con.Delete(id);
             }
@@ -192,7 +194,7 @@ namespace NFCE.API.Repositories
 
         public TEntity GetById(int id)
         {
-            using (SqlConnection con = new SqlConnection(GetConnectionString))
+            using (var con = _connectionRepository.GetConnection())
             {
                 return con.Get<TEntity>(id);
             }
@@ -200,7 +202,7 @@ namespace NFCE.API.Repositories
 
         public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
         {
-            using (SqlConnection con = new SqlConnection(GetConnectionString))
+            using (var con = _connectionRepository.GetConnection())
             {
                 return con.Select<TEntity>(predicate);
             }
@@ -208,7 +210,7 @@ namespace NFCE.API.Repositories
 
         public int Insert(TEntity entity)
         {
-            using (SqlConnection con = new SqlConnection(GetConnectionString))
+            using (var con = _connectionRepository.GetConnection())
             {
                 return int.Parse(con.Insert<TEntity>(entity).ToString());
             }
@@ -224,7 +226,7 @@ namespace NFCE.API.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            using (var con = new SqlConnection(GetConnectionString))
+            using (var con = _connectionRepository.GetConnection())
             {
                 return con.GetAll<TEntity>();
             }

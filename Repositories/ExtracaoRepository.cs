@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using NFCE.API.Interfaces;
 using NFCE.API.Models;
+using NFCE.API.Models.Request;
 
 namespace NFCE.API.Repositories
 {
@@ -51,6 +52,22 @@ namespace NFCE.API.Repositories
             _pagRepository.Insert(model.Pagamento);
             //  Insere na tabela de Emissor
             _emissorRepository.Insert(model.Emissor);
+        }
+        public IEnumerable<ExtracaoModel> Listar(int IdUsuario, ExtracaoListarRequest extracaoListarRequest)
+        {
+            var listaExtracao = this.GetList(x => 
+                x.IdUsuario == IdUsuario && 
+                x.Emissao >= extracaoListarRequest.DataInicio && 
+                x.Emissao <= extracaoListarRequest.DataFim
+            ).ToList();
+            
+            listaExtracao.ForEach(x => {
+                x.Emissor = _emissorRepository.GetList(y => y.IdControle == x.Id).First();
+                x.Items = _itemRepository.GetList(y => y.IdControle == x.Id).ToList();
+                x.Pagamento = _pagRepository.GetList(y => y.IdControle == x.Id).First();
+            });
+
+            return listaExtracao.OrderBy(x => x.Emissao);
         }
     }
 }

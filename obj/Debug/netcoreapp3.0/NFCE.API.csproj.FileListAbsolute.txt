@@ -67,3 +67,4 @@
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Debug/netcoreapp3.0/NFCE.API.dll
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Debug/netcoreapp3.0/NFCE.API.xml
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Debug/netcoreapp3.0/NFCE.API.pdb
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Npgsql.dll

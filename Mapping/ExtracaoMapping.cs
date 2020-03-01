@@ -8,13 +8,13 @@ namespace NFCE.API.Mapping
         public ExtracaoMapping()
         {
             ToTable("NFCET_CONTROLE");
-            Map(x => x.Id).ToColumn("ID").IsIdentity();
-            Map(x => x.IdUsuario).ToColumn("ID_USR");
-            Map(x => x.ChaveAcesso).ToColumn("CHAVE_ACESSO");
-            Map(x => x.Tentativas).ToColumn("TENTATIVAS");
-            Map(x => x.Emissao).ToColumn("EMISSAO");
-            Map(x => x.URL).ToColumn("NFCE_URL");
-            Map(x => x.Status).ToColumn("ID_STATUS");
+            Map(x => x.Id).ToColumn("ID", caseSensitive: false).IsIdentity();
+            Map(x => x.IdUsuario).ToColumn("ID_USR", caseSensitive: false);
+            Map(x => x.ChaveAcesso).ToColumn("CHAVE_ACESSO", caseSensitive: false);
+            Map(x => x.Tentativas).ToColumn("TENTATIVAS", caseSensitive: false);
+            Map(x => x.Emissao).ToColumn("EMISSAO", caseSensitive: false);
+            Map(x => x.URL).ToColumn("NFCE_URL", caseSensitive: false);
+            Map(x => x.Status).ToColumn("ID_STATUS", caseSensitive: false);
             Map(x => x.Pagamento).Ignore();
             Map(x => x.Items).Ignore();
             Map(x => x.Emissor).Ignore();

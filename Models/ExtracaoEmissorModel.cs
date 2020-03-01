@@ -37,6 +37,7 @@ namespace NFCE.API.Models
 
         public void CompletaValores()
         {
+            if(string.IsNullOrEmpty(Endereco)) return;
             List<string> SplitEndereco = Endereco.Split(",").Select(x => { return x.Trim(); }).ToList();
             UF = SplitEndereco[SplitEndereco.Count - 1];
             Municipio = SplitEndereco[SplitEndereco.Count - 2];

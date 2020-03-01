@@ -62,3 +62,8 @@
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Release/netcoreapp3.0/NFCE.API.dll
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Release/netcoreapp3.0/NFCE.API.xml
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Release/netcoreapp3.0/NFCE.API.pdb
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Release/netcoreapp3.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Release/netcoreapp3.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Release/netcoreapp3.0/Microsoft.IdentityModel.Protocols.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Release/netcoreapp3.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Release/netcoreapp3.0/System.IdentityModel.Tokens.Jwt.dll

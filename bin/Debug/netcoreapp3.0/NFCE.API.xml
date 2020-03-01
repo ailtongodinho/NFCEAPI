@@ -4,17 +4,23 @@
         <name>NFCE.API</name>
     </assembly>
     <members>
-        <member name="T:NFCE.API.Controllers.NFCEController">
+        <member name="T:NFCE.API.Controllers.ExtracaoController">
             <summary>
             Autentificação de usuários
             </summary>
         </member>
-        <member name="M:NFCE.API.Controllers.NFCEController.GetInfo(NFCE.API.Models.ExtracaoRequestModel)">
+        <member name="M:NFCE.API.Controllers.ExtracaoController.Extrair(NFCE.API.Models.ExtracaoRequestModel)">
             <summary>
             Retorna informações da NFCE de acordo com a URL
             </summary>
             <param name="model">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
             <returns>Infomações extraídas da NFCE</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ExtracaoController.Listar(NFCE.API.Models.Request.ExtracaoListarRequest)">
+            <summary>
+            Listar informações sobre as notas fiscais
+            </summary>
+            <returns>Informações extraídas da NFCE</returns>
         </member>
         <member name="T:NFCE.API.Controllers.UsuarioController">
             <summary>
@@ -22,6 +28,12 @@
             </summary>
         </member>
         <member name="M:NFCE.API.Controllers.UsuarioController.Login(NFCE.API.Models.AuthModel,NFCE.API.Interfaces.IAuthService)">
+            <summary>
+            Login no sistema
+            </summary>
+            <returns>Token para o login no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.UsuarioController.Listar(NFCE.API.Interfaces.IUsuarioService)">
             <summary>
             Login no sistema
             </summary>
@@ -61,6 +73,19 @@
             <param name="filtro">Caso não seja nulo, é aplicado um filtro</param>
             /// <param name="condicao">Condição And ou Or</param>
             <returns></returns>
+        </member>
+        <member name="M:NFCE.API.Services.ExtracaoService.Listar(NFCE.API.Models.Request.ExtracaoListarRequest)">
+            <summary>
+            Lista as notas ficais do usuário logado
+            </summary>
+            <returns>Lista de notas fiscais do usuário logado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ExtracaoService.ProcessarNFCE(NFCE.API.Models.ExtracaoRequestModel)">
+            <summary>
+            Processa as informações da NFCE e salva no banco de dados
+            </summary>
+            <param name="extracaoRequestModel">Parâmetros para iniciar a extração da NFCE</param>
+            <returns>REsumo do processamento da NFCE</returns>
         </member>
     </members>
 </doc>

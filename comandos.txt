@@ -13,6 +13,7 @@ dotnet add package Log4net
 dotnet add package Microsoft.IdentityModel.Tokens --version 5.6.0
 dotnet add package System.Data.SqlClient --version 4.8.0
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 3.0
+dotnet add package Npgsql --version 4.1.2
 
 --  =========================================================================
 --  NFCE
@@ -20,3 +21,12 @@ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 3.0
 
 https://www.nfce.fazenda.sp.gov.br/qrcode?p=35191145543915028191650020000498571021172109|2|1|4|6BE92985BED1DA6B5B164681CE31EF3C8EAD460F
 https://www.nfce.fazenda.sp.gov.br/qrcode?p=35191147508411093901651070000015291045051268|2|1|1|D8A0FC83B11CA03E0BF341D515D678FF80894E9A
+
+--  =========================================================================
+--  HEROKU UP
+--  =========================================================================
+
+heroku login
+heroku container:login
+heroku container:push web
+heroku container:release web

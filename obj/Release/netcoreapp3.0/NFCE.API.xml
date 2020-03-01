@@ -4,17 +4,6 @@
         <name>NFCE.API</name>
     </assembly>
     <members>
-        <member name="T:NFCE.API.Controllers.AuthController">
-            <summary>
-            Autentificação de usuários
-            </summary>
-        </member>
-        <member name="M:NFCE.API.Controllers.AuthController.GetAction">
-            <summary>
-            Descrição da API
-            </summary>
-            <returns>Versão atual da API</returns>
-        </member>
         <member name="T:NFCE.API.Controllers.NFCEController">
             <summary>
             Autentificação de usuários
@@ -26,6 +15,17 @@
             </summary>
             <param name="model">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
             <returns>Infomações extraídas da NFCE</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.UsuarioController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.UsuarioController.Login(NFCE.API.Models.AuthModel,NFCE.API.Interfaces.IAuthService)">
+            <summary>
+            Login no sistema
+            </summary>
+            <returns>Token para o login no sistema</returns>
         </member>
         <member name="M:NFCE.API.Extensions.AttributeExtension.RetornaAtributo``1(System.Type,System.String)">
             <summary>

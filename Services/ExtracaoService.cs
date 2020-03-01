@@ -12,6 +12,8 @@ using System.Collections;
 using System.Reflection;
 using NFCE.API.Enums;
 using System.ComponentModel;
+using NFCE.API.Models.Request;
+using NFCE.API.Models.Response;
 
 namespace NFCE.API.Services
 {
@@ -26,7 +28,27 @@ namespace NFCE.API.Services
             config = _config;
             _extracaoRepository = extracaoRepository;
         }
-        public BaseResponseModel ProcessarNFCE(string _URL)
+        /// <summary>
+        /// Lista as notas ficais do usuário logado
+        /// </summary>
+        /// <returns>Lista de notas fiscais do usuário logado</returns>
+        public ExtracaoListarResponse Listar(ExtracaoListarRequest extracaoListarRequest)
+        {
+            //  Filtrando pelo usuário atual da Sessão
+            var listaExtracao = _extracaoRepository.Listar(AuthService.UsuarioAtual.Id, extracaoListarRequest);
+            
+            return new ExtracaoListarResponse {
+                Dados = listaExtracao,
+                Total = listaExtracao.Sum(x => x.Pagamento.ValorPago),
+                Quantidade = listaExtracao.Count()
+            };
+        }
+        /// <summary>
+        /// Processa as informações da NFCE e salva no banco de dados
+        /// </summary>
+        /// <param name="extracaoRequestModel">Parâmetros para iniciar a extração da NFCE</param>
+        /// <returns>REsumo do processamento da NFCE</returns>
+        public BaseResponseModel ProcessarNFCE(ExtracaoRequestModel extracaoRequestModel)
         {
             bool sucesso = false;
             string message = "Erro ao processar a Nota Fiscal";
@@ -36,7 +58,7 @@ namespace NFCE.API.Services
                 nfce = new ExtracaoModel();
                 #region Ler HTML
 
-                document = new HtmlWeb().Load(_URL);
+                document = new HtmlWeb().Load(extracaoRequestModel.Url);
 
                 int tentativas = config.GetValue<int>("Processamento:Tentativas");
                 int contador = 0;
@@ -57,7 +79,7 @@ namespace NFCE.API.Services
                     }
                 }
 
-                nfce.URL = _URL;
+                nfce.URL = extracaoRequestModel.Url;
                 nfce.Tentativas = contador;
                 sucesso = nfce.Valido;
 
@@ -65,6 +87,8 @@ namespace NFCE.API.Services
                 if (sucesso)
                 {
                     nfce.Status = StatusExtracaoEnum.Sucesso;
+                    //  Atribuindo ao usuário
+                    nfce.IdUsuario = AuthService.UsuarioAtual.Id;
                     _extracaoRepository.Salvar(nfce);
                 }
 
@@ -78,7 +102,7 @@ namespace NFCE.API.Services
             finally
             {
                 //  Log
-
+                
             }
 
             return new BaseResponseModel { Sucesso = sucesso, Mensagem = message };

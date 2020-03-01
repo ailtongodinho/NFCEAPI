@@ -10,7 +10,7 @@ namespace NFCE.API.Models
         [ExtracaoAttribute(HtmlTag = "span", HtmlClass = "txtTit")]
         public string Nome { get; set; }
         [ExtracaoAttribute(HtmlTag = "span", HtmlClass = "RCod", Pattern = ExtracaoPatternsModel.AposDoisPontosInt)]
-        public int Codigo { get; set; }
+        public long Codigo { get; set; }
         [ExtracaoAttribute(HtmlTag = "span", HtmlClass = "Rqtd", Pattern = ExtracaoPatternsModel.AposDoisPontosFloat)]
         public decimal Quantidade { get; set; }
         [ExtracaoAttribute(HtmlTag = "span", HtmlClass = "RUN", Pattern = ExtracaoPatternsModel.AposDoisPontosString)]
