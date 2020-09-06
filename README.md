@@ -25,7 +25,7 @@ Utilize a URL abaixo para criar o banco de dados no seu SGBD favorito!
 
 [Diagrama de Banco de Dados](https://dbdiagram.io/d/5ed16a8639d18f5553fff8c4)
 
-Assim que o banco for criado, deve-se mudar o provedor (atual [ngpsql](https://www.npgsql.org/)) [aqui](Repositories/RepositoryBase.cs) e a ConnectionString [aqui](appsettings.cs). O DommelEntityMap irá fazer o resto :) .
+Assim que o banco for criado, deve-se mudar o provedor (atual [ngpsql](https://www.npgsql.org/)) [aqui](Repositories/RepositoryBase.cs) e a ConnectionString [aqui](appsettings.json). O DommelEntityMap irá fazer o resto :) .
 
 # Observações
 
