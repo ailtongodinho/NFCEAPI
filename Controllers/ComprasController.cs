@@ -24,6 +24,13 @@ namespace NFCE.API.Controllers
         #endregion
 
         #region Construtor
+        /// <summary>
+        /// CRUD e outros métodos para Compras
+        /// </summary>
+        /// <param name="ComprasService"></param>
+        /// <param name="httpContextAccessor"></param>
+        /// <param name="usuarioService"></param>
+        /// <returns></returns>
         public ComprasController(IComprasService ComprasService, IHttpContextAccessor httpContextAccessor, IUsuarioService usuarioService) : base(httpContextAccessor, usuarioService)
         {
             _ComprasService = ComprasService;
