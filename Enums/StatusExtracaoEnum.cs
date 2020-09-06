@@ -4,9 +4,9 @@ namespace NFCE.API.Enums
 {
     public enum StatusExtracaoEnum
     {
-        [Description("Extração realizada com sucesso")]
+        [Description("Nota registrada com sucesso!")]
         Sucesso = 1,
-        [Description("Erro ao extrair os dados")]
+        [Description("Erro ao registrar a nota!")]
         Erro = -1
     }
 }

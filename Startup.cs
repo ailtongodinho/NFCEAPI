@@ -12,6 +12,12 @@ using NFCE.API.Services;
 using NFCE.API.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NFCE.API.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using NFCE.API.Interfaces.Services;
+using NFCE.API.Interfaces.Repositories;
+using System.Collections.Generic;
+using NFCE.API.Helpers;
+using NFCE.API.Models;
 
 namespace NFCE.API
 {
@@ -28,6 +34,11 @@ namespace NFCE.API
         {
             services.AddControllers();
             services.AddMvc();
+            services.Configure<ApiBehaviorOptions>(x =>
+            {
+                // x.SuppressModelStateInvalidFilter = true;
+                x.InvalidModelStateResponseFactory = (actionContext) => ResponseHelper.TratamentoModelState(actionContext);
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -41,22 +52,25 @@ namespace NFCE.API
                     },
                     Description = "API para controle do aplicativo \"NFCE Agora!\""
                 });
-                c.AddSecurityDefinition("Bearer",
-                new OpenApiSecurityScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
+                    Description = "Entre com a chave de autorização",
                     In = ParameterLocation.Header,
-                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
+                    Scheme = "Bearer",
+                    Type = SecuritySchemeType.ApiKey,
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
                         },
-                        new[] { "readAccess", "writeAccess" }
+                        new List<string>()
                     }
                 });
                 string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -89,7 +103,7 @@ namespace NFCE.API
                     // Tempo de tolerância para a expiração de um token (utilizado
                     // caso haja problemas de sincronismo de horário entre diferentes
                     // computadores envolvidos no processo de comunicação)
-                    ClockSkew = TimeSpan.Zero
+                    ClockSkew = TimeSpan.Zero,
                 };
             });
 
@@ -104,18 +118,47 @@ namespace NFCE.API
 
             #endregion
 
+            var ibge = new IBGEService(Configuration);
+            var viaCEP = new ViaCEPService(Configuration);
+
+            services.AddHttpContextAccessor();
+            services.AddControllersWithViews(c =>
+            {
+                c.Filters.Add(typeof(ControllerActionFilter));
+            });
             #region Services
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddScoped<IAgregadoService, AgregadoService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IComprasService, ComprasService>();
+            services.AddScoped<IComprasProdutoService, ComprasProdutoService>();
+            services.AddScoped<IEmissorService, EmissorService>();
             services.AddScoped<IExtracaoService, ExtracaoService>();
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<INotaService, NotaService>();
+            services.AddScoped<IPagamentoService, PagamentoService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<ILocalidadeService, LocalidadeService>();
+            services.AddScoped<ISaldosService, SaldosService>();
+            services.AddSingleton(ibge);
+            services.AddSingleton(viaCEP);
+            services.AddSingleton(new ConfiguracaoModel());
             services.AddSingleton(sigingConfigurations);
             #endregion
             #region Repositories
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            // services.AddScoped(typeof(IConnectionRepository<>), typeof(ConnectionRepository<>));
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IComprasRepository, ComprasRepository>();
+            services.AddScoped<IComprasProdutoRepository, ComprasProdutoRepository>();
+            services.AddScoped<IEmissorRepository, EmissorRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<INotaRepository, NotaRepository>();
+            services.AddScoped<IPagamentoRepository, PagamentoRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<IExtracaoRepository, ExtracaoRepository>();
+            services.AddScoped<ILocalidadeRepository, LocalidadeRepository>();
+            services.AddScoped<ISaldosRepository, SaldosRepository>();
             #endregion
         }
 

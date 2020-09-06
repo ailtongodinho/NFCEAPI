@@ -9,9 +9,12 @@ namespace NFCE.API.Extensions
         private const string atributoId = "@id";
         private const string atributoTexto = "text()";
         private const string atributoNome = "name()";
+        private static string funcao = "contains";
         public static string FormataXPath(this ExtracaoAttribute atributo, bool decendente = false)
         {
             List<string> XPath = new List<string>();
+            //  Funcao
+            if (atributo.StartsWith) funcao = "starts-with";
             #region Parâmetros
             if (decendente) XPath.Add(".");
             XPath.Add(atributo.FormataXPathBase());
@@ -21,6 +24,9 @@ namespace NFCE.API.Extensions
             #endregion
             #region Preceding Parâmetros
             XPath.Add(atributo.FormataXPathPreceding());
+            #endregion
+            #region Ancestor Parâmetros
+            XPath.Add(atributo.FormataXPathAncestor());
             #endregion
             //  Fecha o XPath
             XPath.Add("]");
@@ -63,7 +69,7 @@ namespace NFCE.API.Extensions
         {
             string retorno = string.Empty;
             if (!string.IsNullOrEmpty(valor))
-                retorno = $"{RetornaCondicao(condicao)}contains({atributo}, '{valor}')";
+                retorno = $"{RetornaCondicao(condicao)}{funcao}({atributo}, '{valor}')";
             return retorno;
         }
         /// <summary>
@@ -104,7 +110,7 @@ namespace NFCE.API.Extensions
                 funcionalidade += RetornaFuncionalidade(atributoId, atributo.FollowingId, condicao: true);
                 funcionalidade += RetornaFuncionalidade(atributoTexto, atributo.FollowingText, condicao: true);
                 //  Tag Following
-                XPath = $"{RetornaCondicao(true)}{RetornaFuncionalidade("following", atributo.FollowingTag, funcionalidade)}";
+                XPath = $"{RetornaCondicao(true)}{RetornaFuncionalidade($"following{(atributo.FollowingSibling ? "-sibling" : "")}", atributo.FollowingTag, funcionalidade)}";
             }
 
             return XPath;
@@ -118,7 +124,22 @@ namespace NFCE.API.Extensions
                 funcionalidade += RetornaFuncionalidade(atributoId, atributo.PrecedingId, condicao: true);
                 funcionalidade += RetornaFuncionalidade(atributoTexto, atributo.PrecedingText, condicao: true);
                 //  Tag Preceding
-                XPath = $"{RetornaCondicao(true)}{RetornaFuncionalidade("preceding", atributo.PrecedingTag, funcionalidade)}";
+                XPath = $"{RetornaCondicao(true)}{RetornaFuncionalidade($"preceding{(atributo.PrecedingSibling ? "-sibling" : "")}", atributo.PrecedingTag, funcionalidade)}";
+            }
+
+            return XPath;
+        }
+
+        private static string FormataXPathAncestor(this ExtracaoAttribute atributo)
+        {
+            string XPath = string.Empty;
+            if (!string.IsNullOrEmpty(atributo.AncestorTag))
+            {
+                string funcionalidade = RetornaFuncionalidade(atributoClasse, atributo.AncestorClass, condicao: true);
+                funcionalidade += RetornaFuncionalidade(atributoId, atributo.AncestorId, condicao: true);
+                funcionalidade += RetornaFuncionalidade(atributoTexto, atributo.AncestorText, condicao: true);
+                //  Tag Ancestor
+                XPath = $"{RetornaCondicao(true)}{RetornaFuncionalidade("ancestor", atributo.AncestorTag, funcionalidade)}";
             }
 
             return XPath;

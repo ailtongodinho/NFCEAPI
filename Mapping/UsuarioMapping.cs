@@ -15,6 +15,9 @@ namespace NFCE.API.Mapping
             Map(x => x.Sexo).ToColumn("SEXO", false);
             Map(x => x.Email).ToColumn("EMAIL", false);
             Map(x => x.Ativo).ToColumn("ATIVO", false);
+            Map(x => x.UF).Ignore();
+            Map(x => x.Municipio).Ignore();
+            Map(x => x.CEP).ToColumn("CEP", false);
             Map(x => x.DataInsercao).ToColumn("DATA_INSERCAO", false);
         }
     }

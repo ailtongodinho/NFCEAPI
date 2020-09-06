@@ -10,6 +10,7 @@ namespace NFCE.API.Models
         public string Mensagem { get; set; }
         public DateTime DataHora => DateTime.Now;
         public object Objeto { get; set; }
+        public object Error { get; set; }
         public ResponseModel ()
         {
             Sucesso = true;

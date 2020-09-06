@@ -1,11 +1,11 @@
 using System.Linq;
 using Microsoft.Extensions.Configuration;
-using NFCE.API.Interfaces;
+using NFCE.API.Interfaces.Repositories;
 using NFCE.API.Models;
 
 namespace NFCE.API.Repositories
 {
-    public class AuthRepository : BaseRepository<AuthModel>, IAuthRepository
+    public class AuthRepository : RepositoryBase<AuthModel>, IAuthRepository
     {
         public AuthRepository(IConfiguration config) : base(config)
         {

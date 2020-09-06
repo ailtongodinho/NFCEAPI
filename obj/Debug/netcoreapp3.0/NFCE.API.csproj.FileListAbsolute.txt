@@ -68,3 +68,10 @@
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Debug/netcoreapp3.0/NFCE.API.xml
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/Debug/netcoreapp3.0/NFCE.API.pdb
 /home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Npgsql.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Microsoft.AspNetCore.Razor.Language.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Microsoft.CodeAnalysis.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Microsoft.CodeAnalysis.CSharp.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/Microsoft.CodeAnalysis.Razor.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/RazorLight.dll
+/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/bin/Debug/netcoreapp3.0/SimpleBrowser.dll

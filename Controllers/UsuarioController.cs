@@ -1,11 +1,14 @@
 using System;
+using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using NFCE.API.Extensions;
-using NFCE.API.Interfaces;
+using NFCE.API.Interfaces.Services;
 using NFCE.API.Models;
+using NFCE.API.Models.Request;
+using NFCE.API.Models.Request.Usuario;
+using NFCE.API.Services;
 
 namespace NFCE.API.Controllers
 {
@@ -14,17 +17,14 @@ namespace NFCE.API.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class UsuarioController : ControllerBase
+    public class UsuarioController : BaseController
     {
         #region Parametros
         // private readonly IAuthService _authService;
         #endregion
 
         #region Construtor
-        // public UsuarioController(IAuthService authService)
-        // {
-        //     _authService = authService;
-        // }
+        public UsuarioController(IHttpContextAccessor httpContextAccessor, IUsuarioService usuarioService) : base(httpContextAccessor, usuarioService) { }
         #endregion
 
         #region Metodos
@@ -32,22 +32,21 @@ namespace NFCE.API.Controllers
         /// Login no sistema
         /// </summary>
         /// <returns>Token para o login no sistema</returns>
+        [Authorize]
+        [HttpGet]
+        public IActionResult Get([FromServices] IUsuarioService _usuarioService)
+        {
+            return Ok(Usuario);
+        }
+        /// <summary>
+        /// Login no sistema
+        /// </summary>
+        /// <returns>Token para o login no sistema</returns>
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public IActionResult Login([FromBody] AuthModel auth, [FromServices] IAuthService _authService)
+        public IActionResult Login(AuthModel auth, [FromServices] IAuthService _authService)
         {
-            ResponseModel response = new ResponseModel { Sucesso = true, HttpStatus = HttpStatusCode.OK };
-            try
-            {
-                response.Objeto = _authService.Login(auth);
-            }
-            catch (Exception ex)
-            {
-                response.HttpStatus = HttpStatusCode.InternalServerError;
-                response.Mensagem = ex.ToString();
-                response.Sucesso = false;
-            }
-            return StatusCode((int)response.HttpStatus, response);
+            return Ok(_authService.Login(auth));
         }
 
         /// <summary>
@@ -58,38 +57,30 @@ namespace NFCE.API.Controllers
         [HttpGet("[action]")]
         public IActionResult Listar([FromServices] IUsuarioService _usuarioService)
         {
-            ResponseModel response = new ResponseModel { Sucesso = true, HttpStatus = HttpStatusCode.OK };
-            try
-            {
-                response.Objeto = _usuarioService.Listar();
-            }
-            catch (Exception ex)
-            {
-                response.HttpStatus = HttpStatusCode.InternalServerError;
-                response.Mensagem = ex.ToString();
-                response.Sucesso = false;
-            }
-            return StatusCode((int)response.HttpStatus, response);
+
+            return Ok(_usuarioService.Listar());
         }
 
         [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult Novo([FromBody] UsuarioModel usuario, [FromServices] IUsuarioService _usuarioService)
         {
-            ResponseModel response = new ResponseModel { Sucesso = true, HttpStatus = HttpStatusCode.Created };
-            try
-            {
-                response.Mensagem = _usuarioService.Novo(usuario);
-            }
-            catch (Exception ex)
-            {
-                response.HttpStatus = HttpStatusCode.InternalServerError;
-                response.Mensagem = ex.ToString();
-                response.Sucesso = false;
-            }
-            return StatusCode((int)response.HttpStatus, response);
+            return Ok(_usuarioService.Novo(usuario));
+        }
+        [Authorize]
+        [HttpPost("[action]")]
+        public IActionResult Atualizar([FromBody] UsuarioModel usuario, [FromServices] IUsuarioService _usuarioService)
+        {
+            return Ok(_usuarioService.Atualizar(usuario));
         }
         #endregion
-
+        #region Metodos
+        [Authorize]
+        [HttpPost("[action]")]
+        public IActionResult AlterarSenha([FromBody] AuthAlterarSenha authAlterarSenha, [FromServices] IAuthService _authService)
+        {
+            return Ok(_authService.AlterarSenha(Usuario.Id, authAlterarSenha));
+        }
+        #endregion
     }
 }

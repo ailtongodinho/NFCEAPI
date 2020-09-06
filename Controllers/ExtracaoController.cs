@@ -6,28 +6,24 @@ using NFCE.API.Helpers;
 using System.Net;
 using System;
 using NFCE.API.Models.Request;
+using NFCE.API.Interfaces.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace NFCE.API.Controllers
 {
     /// <summary>
     /// Autentificação de usuários
     /// </summary>
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class ExtracaoController : ControllerBase
+    public class ExtracaoController : BaseController
     {
         #region Parametros
-        private readonly IAuthService authService;
-        private readonly IExtracaoService ExtracaoService;
         #endregion
 
         #region Construtor
-        public ExtracaoController(IAuthService _authService, IExtracaoService _ExtracaoService)
-        {
-            authService = _authService;
-            ExtracaoService = _ExtracaoService;
-        }
+        public ExtracaoController(IHttpContextAccessor httpContextAccessor, IUsuarioService usuarioService) : base(httpContextAccessor, usuarioService) { }
         #endregion
 
         #region Metodos
@@ -35,44 +31,13 @@ namespace NFCE.API.Controllers
         /// Retorna informações da NFCE de acordo com a URL
         /// </summary>
         /// <param name="model">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
+        /// <param name="extracaoService">Serviço</param>
         /// <returns>Infomações extraídas da NFCE</returns>
         [HttpPost("[action]")]
-        public IActionResult Extrair([FromBody] ExtracaoRequestModel model)
+        public IActionResult Extrair([FromBody] ExtracaoRequest model, [FromServices] IExtracaoService extracaoService)
         {
-            ResponseModel response = new ResponseModel { Sucesso = true, HttpStatus = HttpStatusCode.OK };
-            try
-            {
-                response.Objeto = ExtracaoService.ProcessarNFCE(model);
-            }
-            catch (Exception ex)
-            {
-                response.HttpStatus = HttpStatusCode.InternalServerError;
-                response.Mensagem = ex.ToString();
-                response.Sucesso = false;
-            }
-            return StatusCode((int)response.HttpStatus, response);
-        }
-        /// <summary>
-        /// Listar informações sobre as notas fiscais
-        /// </summary>
-        /// <returns>Informações extraídas da NFCE</returns>
-        [HttpPost("[action]")]    
-        public IActionResult Listar(ExtracaoListarRequest extracaoListarRequest)
-        {
-            ResponseModel response = new ResponseModel { Sucesso = true, HttpStatus = HttpStatusCode.OK };
-            try
-            {
-                response.Objeto = ExtracaoService.Listar(extracaoListarRequest);
-            }
-            catch (Exception ex)
-            {
-                response.HttpStatus = HttpStatusCode.InternalServerError;
-                response.Mensagem = ex.ToString();
-                response.Sucesso = false;
-            }
-            return StatusCode((int)response.HttpStatus, response);
+            return Ok(extracaoService.Processar(Usuario.Id, model));
         }
         #endregion
-
     }
 }

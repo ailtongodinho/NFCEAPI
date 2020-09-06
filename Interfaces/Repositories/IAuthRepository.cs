@@ -1,8 +1,8 @@
 using NFCE.API.Models;
 
-namespace NFCE.API.Interfaces
+namespace NFCE.API.Interfaces.Repositories
 {
-    public interface IAuthRepository : IBaseRepository<AuthModel>
+    public interface IAuthRepository : IRepositoryBase<AuthModel>
     {
         AuthModel Consulta(AuthModel model);
     }

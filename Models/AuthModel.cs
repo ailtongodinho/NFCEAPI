@@ -11,10 +11,10 @@ namespace NFCE.API.Models
         public int Id { get; set; }
         [JsonIgnore]
         public int IdUsuario { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obrigatório")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Login é obrigatório")]
         public string Login { get; set; }
         [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", ErrorMessage = "Senha deve conter 8 caracteres com 1 maiusculo, 1 minusculo e 1 número")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obrigatório")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Senha é obrigatório")]
         public string Senha { get; set; }
         [JsonIgnore]
         public bool Valido { get; set; }

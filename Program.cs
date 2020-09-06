@@ -15,8 +15,8 @@ namespace NFCE.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    #if !DEBUG
-                    // webBuilder.UseUrls("http://0.0.0.0:5000");
+                    #if DEBUG
+                    webBuilder.UseUrls("http://0.0.0.0:5001");
                     #endif
                 });
     }
