@@ -4,28 +4,335 @@
         <name>NFCE.API</name>
     </assembly>
     <members>
-        <member name="T:NFCE.API.Controllers.AuthController">
+        <member name="T:NFCE.API.Controllers.ComprasController">
             <summary>
             Autentificação de usuários
             </summary>
         </member>
-        <member name="M:NFCE.API.Controllers.AuthController.GetAction">
+        <member name="M:NFCE.API.Controllers.ComprasController.Consultar(System.Int32)">
             <summary>
-            Descrição da API
+            Consultar
             </summary>
-            <returns>Versão atual da API</returns>
+            <returns>Modelo de Consulta</returns>
         </member>
-        <member name="T:NFCE.API.Controllers.NFCEController">
+        <member name="M:NFCE.API.Controllers.ComprasController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.Novo(NFCE.API.Models.ComprasModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.Listar">
+            <summary>
+            Listar
+            </summary>
+            <returns>Listagem das listas de comptas</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.ComprasProdutoController">
             <summary>
             Autentificação de usuários
             </summary>
         </member>
-        <member name="M:NFCE.API.Controllers.NFCEController.GetInfo(NFCE.API.Models.ExtracaoRequestModel)">
+        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Novo(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Atualizar(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Atualizar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Listar(NFCE.API.Models.Request.ComprasProdutoListarRequest)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Listagem das listas de comptas</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasProdutoController.ListarProdutos(NFCE.API.Models.Request.ProdutoListarRequest)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Listagem das listas de comptas</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.ConfiguracoesController">
+            <summary>
+            Configurações do APP
+            </summary>
+        </member>
+        <member name="T:NFCE.API.Controllers.EmissorController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.EmissorController.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.EmissorController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.EmissorController.Novo(NFCE.API.Models.EmissorModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.EmissorController.Agregado(NFCE.API.Models.Request.EmissorAgregadoRequest,NFCE.API.Interfaces.IAgregadoService)">
+            <summary>
+            Agregado
+            </summary>
+            <param name="modelo">Modelo de Emissor Agregado</param>
+            <param name="agregadoService">Serviço agregado</param>
+            <returns>Modelo Agregado</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.ExtracaoController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.ExtracaoController.Extrair(NFCE.API.Models.Request.ExtracaoRequest,NFCE.API.Interfaces.Services.IExtracaoService)">
             <summary>
             Retorna informações da NFCE de acordo com a URL
             </summary>
             <param name="model">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
+            <param name="extracaoService">Serviço</param>
             <returns>Infomações extraídas da NFCE</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.ItemController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.ItemController.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ItemController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ItemController.Novo(NFCE.API.Models.ItemModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.LocalidadeController">
+            <summary>
+            Localidades do Sistema
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.Consultar(System.Int32,NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Retorna a Localidade registrada no sistema
+            </summary>
+            <returns>Localidades registradas no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.Listar(NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Listar as localidades do sistema
+            </summary>
+            <returns>Localidades registradas no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.ListarEstados(NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Listar estados do sistema
+            </summary>
+            <returns>Localidades registradas no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.ListarMunicipios(System.Int32,NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Listar distritos do sistema
+            </summary>
+            <returns>Localidades registradas no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.ListarDistritos(System.Int32,NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Listar distritos do sistema
+            </summary>
+            <returns>Localidades registradas no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.Novo(NFCE.API.Models.LocalidadeModel,NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Nova Localidade
+            </summary>
+            <returns>Id da Localidade</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.Atualizar(NFCE.API.Models.LocalidadeModel,NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Atualizar Localidade
+            </summary>
+            <returns>Sucesso da operação</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.LocalidadeController.Consultar(NFCE.API.Models.LocalidadeModel,NFCE.API.Interfaces.Services.ILocalidadeService)">
+            <summary>
+            Retorna a Localidade registrada no sistema
+            </summary>
+            <returns>Localidades registradas no sistema</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.NotaController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.ConsultarItem(System.Int32,NFCE.API.Interfaces.Services.IItemService)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.Novo(NFCE.API.Models.NotaModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de nota</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.Favoritar(NFCE.API.Models.Request.NotaRequest)">
+            <summary>
+            Favorita a nota
+            </summary>
+            <param name="modelo">URL de acesso a NFCE. Mais informações em http://nfce.encat.org/desenvolvedor/</param>
+            <returns>Infomações extraídas da NFCE</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.Listar(NFCE.API.Models.Request.NotaListarRequest)">
+            <summary>
+            Listar informações sobre as notas fiscais
+            </summary>
+            <returns>Informações extraídas da NFCE</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.NotaController.Ordenar(NFCE.API.Models.Request.NotaOrdenarRequest)">
+            <summary>
+            Ordenar informações sobre as notas fiscais
+            </summary>
+            <returns>Informações extraídas da NFCE</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.PagamentoController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.PagamentoController.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.PagamentoController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.PagamentoController.Novo(NFCE.API.Models.PagamentoModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Pagamento</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.ProdutoController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.ProdutoController.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ProdutoController.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ProdutoController.Novo(NFCE.API.Models.ProdutoModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ProdutoController.Listar(NFCE.API.Models.Request.ProdutoListarRequest)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Lista de produtos</returns>
+        </member>
+        <member name="T:NFCE.API.Controllers.TesteController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="T:NFCE.API.Controllers.UsuarioController">
+            <summary>
+            Autentificação de usuários
+            </summary>
+        </member>
+        <member name="M:NFCE.API.Controllers.UsuarioController.Get(NFCE.API.Interfaces.Services.IUsuarioService)">
+            <summary>
+            Login no sistema
+            </summary>
+            <returns>Token para o login no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.UsuarioController.Login(NFCE.API.Models.AuthModel,NFCE.API.Interfaces.Services.IAuthService)">
+            <summary>
+            Login no sistema
+            </summary>
+            <returns>Token para o login no sistema</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.UsuarioController.Listar(NFCE.API.Interfaces.Services.IUsuarioService)">
+            <summary>
+            Login no sistema
+            </summary>
+            <returns>Token para o login no sistema</returns>
         </member>
         <member name="M:NFCE.API.Extensions.AttributeExtension.RetornaAtributo``1(System.Type,System.String)">
             <summary>
@@ -61,6 +368,389 @@
             <param name="filtro">Caso não seja nulo, é aplicado um filtro</param>
             /// <param name="condicao">Condição And ou Or</param>
             <returns></returns>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Emissor.EmissorAgregadoResponse.QuantidadeNotas">
+            <summary>
+            Quantidade de Notas Fiscais
+            </summary>
+            <value>Ex: 10</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Emissor.EmissorAgregadoResponse.SomatoriaTotal">
+            <summary>
+            Total Gasto
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Emissor.EmissorAgregadoResponse.SomatoriaTroco">
+            <summary>
+            Total Gasto
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Emissor.EmissorAgregadoResponse.SomatoriaTributos">
+            <summary>
+            Total Gasto
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemAgregadoResponse.Ranking">
+            <summary>
+            Ranking de Itens
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemAgregadoResponse.Quantidade">
+            <summary>
+            Quantidade de Itens
+            </summary>
+            <value>Ex: 10</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemAgregadoResponse.Total">
+            <summary>
+            Total Gasto
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemRankingResponse.Nome">
+            <summary>
+            Ranking de Itens
+            </summary>
+            <value>Ex: 10</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemRankingResponse.ValorMax">
+            <summary>
+            Valor máximo do Item
+            </summary>
+            <value>Ex: 10</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemRankingResponse.ValorMin">
+            <summary>
+            Valor mínimo do Item
+            </summary>
+            <value>Ex: 10</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemRankingResponse.Total">
+            <summary>
+            Total Gasto
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemRankingResponse.UltimaCompra">
+            <summary>
+            Última compra
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Item.ItemRankingResponse.UltimoEmissor">
+            <summary>
+            Último emissor
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Pagamento.PagamentoAgregadoResponse.Quantidade">
+            <summary>
+            Quantidade
+            </summary>
+            <value>Ex: 10</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Pagamento.PagamentoAgregadoResponse.TotalTroco">
+            <summary>
+            Total Pago
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Pagamento.PagamentoAgregadoResponse.Total">
+            <summary>
+            Total Pago
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="P:NFCE.API.Models.Response.Pagamento.PagamentoAgregadoResponse.TotalTributos">
+            <summary>
+            Total Impostos
+            </summary>
+            <value>10.00</value>
+        </member>
+        <member name="M:NFCE.API.Repositories.RepositoryBase`1.Formatar``1(System.String,System.String)">
+            <summary>
+            Formata o SQL
+            </summary>
+            <param name="sql"></param>
+            <param name="alias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.ConsultarPorCompra(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.DeletarPorCompra(System.Int32)">
+            <summary>
+            Deletar todos os registros da compra
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Novo(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de ComprasProduto</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Atualizar(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Atualizar Registro
+            </summary>
+            <param name="modelo">Modelo de ComprasProduto</param>
+            <returns>Sucesso da atualização</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Listar(NFCE.API.Models.Request.ComprasProdutoListarRequest)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Modelo de Listagem</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Listar(NFCE.API.Models.Request.ProdutoListarRequest)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Modelo de Listagem</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasProdutoService.Consultar(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Consultar por produto
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasService.Novo(NFCE.API.Models.ComprasModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Compras</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ComprasService.Listar(System.Int32)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Modelo de Listagem</returns>
+        </member>
+        <member name="M:NFCE.API.Services.EmissorService.Atualizar(NFCE.API.Models.EmissorModel)">
+            <summary>
+            Atualizar
+            </summary>
+            <returns>Sucesso da Atualizar</returns>
+        </member>
+        <member name="M:NFCE.API.Services.EmissorService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.EmissorService.Consultar(NFCE.API.Models.EmissorModel)">
+            <summary>
+            Consultar por Modelo
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.EmissorService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.EmissorService.Novo(NFCE.API.Models.EmissorModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.EmissorService.Agregado(System.Int32,NFCE.API.Models.Request.EmissorAgregadoRequest)">
+            <summary>
+            Retorna agregado
+            </summary>
+            <param name="IdUsuario">Identificação do Usuário</param>
+            <param name="emissorAgregadoRequest">Parâmetros para listar Emissor Agregado</param>
+            <returns>Agregado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ExtracaoService.SelecionaTipo">
+            <summary>
+            Atribui o Tipo de Documento Fiscal
+            </summary>
+            <returns>Tipo de Documento Fiscal</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ExtracaoService.Processar(System.Int32,NFCE.API.Models.Request.ExtracaoRequest)">
+            <summary>
+            Processa as informações da NFCE e salva no banco de dados
+            </summary>
+            <param name="idUsuario">Id do usuário</param>
+            <param name="extracaoRequestModel">Parâmetros para iniciar a extração da NFCE</param>
+            <returns>Resumo do processamento da NFCE</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ItemService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ItemService.ConsultarPelaNota(System.Int32)">
+            <summary>
+            Consultar pela nota
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ItemService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ItemService.Novo(NFCE.API.Models.ItemModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Item</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ItemService.Agregado(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Retorna agregado
+            </summary>
+            <param name="IdUsuario">Id do usuario</param>
+            <param name="IdNota">Id da Nota/Controle</param>
+            <returns>Agregado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.Novo(NFCE.API.Models.NotaModel)">
+            <summary>
+            Salvar uma nova Nota
+            </summary>
+            <param name="modelo">Modelo completo de uma nota</param>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.Favoritar(NFCE.API.Models.Request.NotaRequest)">
+            <summary>
+            Favorita um item da lista
+            </summary>
+            <returns>Verdadeiro ou falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.ListarTotais(System.Int32,NFCE.API.Models.Request.NotaListarRequest)">
+            <summary>
+            Lista as notas ficais do usuário logado
+            </summary>
+            <returns>Lista de notas fiscais do usuário logado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.Ordenar(NFCE.API.Models.Request.NotaOrdenarRequest)">
+            <summary>
+            Ordena as notas ficais
+            </summary>
+            <returns>Lista de notas fiscais Ordenada</returns>
+        </member>
+        <member name="M:NFCE.API.Services.NotaService.Agregado">
+            <summary>
+            Listar agregado de notas
+            </summary>
+            <returns>Agregado de todas as notas</returns>
+        </member>
+        <member name="M:NFCE.API.Services.PagamentoService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.PagamentoService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.PagamentoService.Novo(NFCE.API.Models.PagamentoModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Pagamento</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.PagamentoService.Agregado(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Retorna agregado
+            </summary>
+            <param name="IdUsuario">Id do usuario</param>
+            <param name="IdNota">Id da Nota/Controle</param>
+            <returns>Agregado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ProdutoService.Consultar(System.Int32)">
+            <summary>
+            Consultar
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ProdutoService.Deletar(System.Int32)">
+            <summary>
+            Deletar
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ProdutoService.Novo(NFCE.API.Models.ProdutoModel)">
+            <summary>
+            Novo Registro
+            </summary>
+            <param name="modelo">Modelo de Produto</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ProdutoService.Listar(NFCE.API.Models.Request.ProdutoListarRequest)">
+            <summary>
+            Listar
+            </summary>
+            <returns>Modelo de Listagem</returns>
+        </member>
+        <member name="M:NFCE.API.Services.ProdutoService.Consultar(NFCE.API.Models.ProdutoModel)">
+            <summary>
+            Consultar por produto
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.SaldosService.AtualizarSaldos(System.Int32)">
+            <summary>
+            Procedimento para Atualizar e adicionar novos saldos
+            </summary>
+            <returns>Sucesso do procedimento</returns>
         </member>
     </members>
 </doc>

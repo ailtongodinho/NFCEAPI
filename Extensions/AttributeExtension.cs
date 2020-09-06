@@ -30,11 +30,21 @@ namespace NFCE.API.Extensions
             }
             return retorno;
         }
-        public static List<T> RetornaAtributos<T>(this Type tipoClasse) where T : Attribute
+        public static List<T> RetornaAtributos<T>(this Type tipoClasse, string propriedade = null) where T : Attribute
         {
             List<T> retorno = new List<T>();
-            retorno.Add(tipoClasse.GetCustomAttribute<T>());
-            tipoClasse.GetProperties().ToList().ForEach(x => retorno.Add(x.GetCustomAttribute<T>()));
+            if (string.IsNullOrEmpty(propriedade))
+            {
+                retorno.AddRange(tipoClasse.GetCustomAttributes<T>());
+            }
+            else
+            {
+                if (tipoClasse.IsEnum)
+                    retorno.AddRange(tipoClasse.GetMember(propriedade).Select(x => x.GetCustomAttribute<T>()));
+                else
+                    retorno.AddRange(tipoClasse.GetProperty(propriedade).GetCustomAttributes<T>());
+
+            }
             return retorno;
         }
     }

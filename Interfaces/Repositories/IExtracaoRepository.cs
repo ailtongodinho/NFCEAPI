@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using NFCE.API.Models;
+using NFCE.API.Models.Request;
 
-namespace NFCE.API.Interfaces
+namespace NFCE.API.Interfaces.Repositories
 {
-    public interface IExtracaoRepository
+    public interface INotaRepository : IRepositoryBase<NotaModel>
     {
-        void Salvar(ExtracaoModel model);
+        int Novo(NotaModel modelo);
+        NotaModel Consultar(int Id);
+        IEnumerable<NotaModel> Listar(int IdUsuario, NotaListarRequest extracaoListarRequest);
     }
 }
