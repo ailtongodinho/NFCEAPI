@@ -50,7 +50,7 @@ namespace NFCE.API
                         Email = "ailton.godinho@hotmail.com",
                         Name = "Ailton Godinho"
                     },
-                    Description = "API para controle do aplicativo \"NFCE Agora!\""
+                    Description = $"API para controle do aplicativo Fiscode. Versão {Assembly.GetEntryAssembly().GetName().Version}"
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
