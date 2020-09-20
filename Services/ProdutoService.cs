@@ -45,16 +45,16 @@ namespace NFCE.API.Services
         {
             //  Retirando poeiras do nome
             modelo.Apelido = modelo.Nome.ToUpper().Replace(modelo.Unidade.ToUpper(), "");
+            //  Aplica correção para codigos de identificação do produto
+            modelo.CEST = long.TryParse(modelo.CEST, out long cest) ? cest.ToString() : null;
+            modelo.CFOP = long.TryParse(modelo.CFOP, out long cfop) ? cfop.ToString() : null;
+            modelo.EAN = long.TryParse(modelo.EAN, out long ean) ? ean.ToString() : null;
+            modelo.NCM = long.TryParse(modelo.NCM, out long ncm) ? ncm.ToString() : null;
+            modelo.DataCriacao = DateTime.Now;
             // Verifica se existe na lista
             var produto = Consultar(modelo);
             if (produto == null)
             {
-                //  Aplica correção para codigos de identificação do produto
-                modelo.CEST = long.TryParse(modelo.CEST, out long cest) ? cest.ToString() : null;
-                modelo.CFOP = long.TryParse(modelo.CFOP, out long cfop) ? cfop.ToString() : null;
-                modelo.EAN = long.TryParse(modelo.EAN, out long ean) ? ean.ToString() : null;
-                modelo.NCM = long.TryParse(modelo.NCM, out long ncm) ? ncm.ToString() : null;
-                modelo.DataCriacao = DateTime.Now;
                 return _ProdutoRepository.Insert(modelo);
             }
             return produto.Id;
@@ -77,7 +77,7 @@ namespace NFCE.API.Services
         /// <returns>Modelo de Consulta</returns>
         public ProdutoModel Consultar(ProdutoModel produto)
         {
-            return _ProdutoRepository.GetList(x => x.Codigo == produto.Codigo).FirstOrDefault();
+            return _ProdutoRepository.GetList(x => x.EAN == produto.EAN).FirstOrDefault();
         }
         #endregion
     }

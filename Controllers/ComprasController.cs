@@ -21,19 +21,22 @@ namespace NFCE.API.Controllers
     {
         #region Parametros
         private readonly IComprasService _ComprasService;
+        private readonly IComprasProdutoService _ComprasProdutoService;
         #endregion
 
         #region Construtor
         /// <summary>
         /// CRUD e outros métodos para Compras
         /// </summary>
-        /// <param name="ComprasService"></param>
-        /// <param name="httpContextAccessor"></param>
-        /// <param name="usuarioService"></param>
+        /// <param name="ComprasService">Serviço de Compras</param>
+        /// <param name="ComprasProdutoService">Serviço de Produtos</param>
+        /// <param name="httpContextAccessor">Acesso de contexto</param>
+        /// <param name="usuarioService">Serviço de Usuário</param>
         /// <returns></returns>
-        public ComprasController(IComprasService ComprasService, IHttpContextAccessor httpContextAccessor, IUsuarioService usuarioService) : base(httpContextAccessor, usuarioService)
+        public ComprasController(IComprasService ComprasService, IComprasProdutoService ComprasProdutoService, IHttpContextAccessor httpContextAccessor, IUsuarioService usuarioService) : base(httpContextAccessor, usuarioService)
         {
             _ComprasService = ComprasService;
+            _ComprasProdutoService = ComprasProdutoService;
         }
         #endregion
         #region CRUD
@@ -66,6 +69,54 @@ namespace NFCE.API.Controllers
             modelo.IdUsuario = Usuario.Id;
             return Ok(_ComprasService.Novo(modelo));
         }
+        /// <summary>
+        /// Comparar Compras
+        /// </summary>
+        /// <returns>Lista de Emissores por Produto</returns>
+        [HttpGet("{id}/Comparar")]
+        public ActionResult Comparar(int Id)
+        {
+            return Ok();
+        }
+        #endregion
+        #region CRUD Produtos
+        /// <summary>
+        /// Consultar Produto
+        /// </summary>
+        /// <returns>Modelo de Consulta</returns>
+        [HttpGet("Produto/{Id}")]
+        public ActionResult ConsultarProduto(int Id)
+        {
+            return Ok(_ComprasProdutoService.Consultar(Id));
+        }
+        /// <summary>
+        /// Deletar Produto
+        /// </summary>
+        /// <returns>Verdadeiro ou Falso</returns>
+        [HttpDelete("Produto/Deletar/{Id}")]
+        public ActionResult DeletarProduto(int Id)
+        {
+            return Ok(_ComprasProdutoService.Deletar(Id));
+        }
+        /// <summary>
+        /// Novo Produto
+        /// </summary>
+        /// <param name="modelo">Modelo de Emissor</param>
+        /// <returns>Identificação do Registro adicionado</returns>
+        [HttpPost("Produto")]
+        public ActionResult NovoProduto(ComprasProdutoModel modelo)
+        {
+            return Ok(_ComprasProdutoService.Novo(modelo));
+        }
+        /// <summary>
+        /// Atualizar Produto
+        /// </summary>
+        /// <returns>Verdadeiro ou Falso</returns>
+        [HttpPost("Produto/Atualizar")]
+        public ActionResult AtualizarProduto(ComprasProdutoModel modelo)
+        {
+            return Ok(_ComprasProdutoService.Atualizar(modelo));
+        }
         #endregion
         #region Metodos
         /// <summary>
@@ -76,6 +127,26 @@ namespace NFCE.API.Controllers
         public ActionResult Listar()
         {
             return Ok(_ComprasService.Listar(Usuario.Id));
+        }
+        #endregion
+        #region Metodos Produtos
+        /// <summary>
+        /// Listar
+        /// </summary>
+        /// <returns>Listagem das listas de comptas</returns>
+        [HttpPost("Produto/Listar")]
+        public ActionResult Listar(ComprasProdutoListarRequest comprasProdutosListarRequest)
+        {
+            return Ok(_ComprasProdutoService.Listar(comprasProdutosListarRequest));
+        }
+        /// <summary>
+        /// Listar
+        /// </summary>
+        /// <returns>Listagem das listas de comptas</returns>
+        [HttpPost("Produto/ListarProdutos")]
+        public ActionResult ListarProdutos(ProdutoListarRequest produtoListarRequest)
+        {
+            return Ok(_ComprasProdutoService.Listar(produtoListarRequest));
         }
         #endregion
     }

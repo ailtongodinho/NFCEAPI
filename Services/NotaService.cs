@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using NFCE.API.Interfaces;
@@ -32,7 +33,7 @@ namespace NFCE.API.Services
             ISaldosService saldosService,
             ConfiguracaoModel ConfiguracaoModel,
             IProdutoService produtoService
-        ) 
+        )
         // : base(httpContextAccessor, usuarioService)
         {
             _NotaRepository = NotaRepository;
@@ -102,7 +103,7 @@ namespace NFCE.API.Services
             _NotaRepository.OpenTransaction();
             try
             {
-                Existe(modelo);
+                if (Existe(modelo)) throw new HttpExceptionHandler(mensagemUsuario: _config.GetValue<string>("Messages:NFCE:Exists"));
                 //  Insere na tabela de Emissor
                 modelo.IdEmissor = _EmissorService.Novo(modelo.Emissor);
                 //  Pega o Id
@@ -110,18 +111,23 @@ namespace NFCE.API.Services
                 //  Atribui as propriedades
                 modelo.Pagamento.IdControle = modelo.Id;
                 //  Insere na tabela de Items
-                modelo.Items.ForEach(x =>
+                Task.Run(() =>
                 {
-                    x.IdControle = modelo.Id;
-                    x.IdProduto = _ProdutoService.Novo(new ProdutoModel(x){
-                        IdEmissor = modelo.IdEmissor
+                    modelo.Items.ForEach(x =>
+                    {
+                        x.IdControle = modelo.Id;
+                        x.IdProduto = _ProdutoService.Novo(new ProdutoModel(x)
+                        {
+                            IdEmissor = modelo.IdEmissor
+                        });
+                        _ItemService.Novo(x);
+                        _saldosService.Salvar(x, modelo.IdEmissor);
                     });
-                    _ItemService.Novo(x);
-                });
+                }).ContinueWith((x) => { x.Dispose(); }, TaskContinuationOptions.OnlyOnRanToCompletion);
                 //  Insere na tabela de Pagamentos
                 _PagamentoService.Novo(modelo.Pagamento);
                 //  Insere na Saldos
-                _saldosService.AtualizarSaldos(modelo.Id);
+                // _saldosService.AtualizarSaldos(modelo.Id);
                 _NotaRepository.CloseTransaction(true);
             }
             catch (Exception ex)
@@ -207,12 +213,15 @@ namespace NFCE.API.Services
             agregado.PagamentoAgregado = _PagamentoService.Agregado(Usuario.Id);
             return agregado;
         }
-        public void Existe(NotaModel modelo)
+        public bool Existe(NotaModel modelo)
         {
             //  Verifica se existe
-            var existe = _NotaRepository.GetList(x => x.ChaveAcesso == modelo.ChaveAcesso && x.IdUsuario == modelo.IdUsuario).Any();
-            //  Se existir, retorna falso
-            if (existe) throw new HttpExceptionHandler(mensagemUsuario: _config.GetValue<string>("Messages:NFCE:Exists"));
+            return _NotaRepository.GetList(x => x.ChaveAcesso == modelo.ChaveAcesso && x.IdUsuario == modelo.IdUsuario).Any();
+        }
+        public bool Existe(string chaveAcesso)
+        {
+            //  Verifica se existe
+            return _NotaRepository.GetList(x => x.ChaveAcesso == chaveAcesso).Any();
         }
         #endregion
     }

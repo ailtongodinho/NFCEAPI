@@ -12,5 +12,6 @@ namespace NFCE.API.Interfaces.Services
         List<SaldosModel> Listar();
         bool Atualizar(SaldosModel model);
         bool AtualizarSaldos(int idNota);
+        bool Salvar(ItemModel item, int idEmissor);
     }
 }

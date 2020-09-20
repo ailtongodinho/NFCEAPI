@@ -9,6 +9,16 @@
             Autentificação de usuários
             </summary>
         </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.#ctor(NFCE.API.Interfaces.Services.IComprasService,NFCE.API.Interfaces.Services.IComprasProdutoService,Microsoft.AspNetCore.Http.IHttpContextAccessor,NFCE.API.Interfaces.Services.IUsuarioService)">
+            <summary>
+            CRUD e outros métodos para Compras
+            </summary>
+            <param name="ComprasService">Serviço de Compras</param>
+            <param name="ComprasProdutoService">Serviço de Produtos</param>
+            <param name="httpContextAccessor">Acesso de contexto</param>
+            <param name="usuarioService">Serviço de Usuário</param>
+            <returns></returns>
+        </member>
         <member name="M:NFCE.API.Controllers.ComprasController.Consultar(System.Int32)">
             <summary>
             Consultar
@@ -28,49 +38,50 @@
             <param name="modelo">Modelo de Emissor</param>
             <returns>Identificação do Registro adicionado</returns>
         </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.Comparar(System.Int32)">
+            <summary>
+            Comparar Compras
+            </summary>
+            <returns>Lista de Emissores por Produto</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.ConsultarProduto(System.Int32)">
+            <summary>
+            Consultar Produto
+            </summary>
+            <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.DeletarProduto(System.Int32)">
+            <summary>
+            Deletar Produto
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.NovoProduto(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Novo Produto
+            </summary>
+            <param name="modelo">Modelo de Emissor</param>
+            <returns>Identificação do Registro adicionado</returns>
+        </member>
+        <member name="M:NFCE.API.Controllers.ComprasController.AtualizarProduto(NFCE.API.Models.ComprasProdutoModel)">
+            <summary>
+            Atualizar Produto
+            </summary>
+            <returns>Verdadeiro ou Falso</returns>
+        </member>
         <member name="M:NFCE.API.Controllers.ComprasController.Listar">
             <summary>
             Listar
             </summary>
             <returns>Listagem das listas de comptas</returns>
         </member>
-        <member name="T:NFCE.API.Controllers.ComprasProdutoController">
-            <summary>
-            Autentificação de usuários
-            </summary>
-        </member>
-        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Consultar(System.Int32)">
-            <summary>
-            Consultar
-            </summary>
-            <returns>Modelo de Consulta</returns>
-        </member>
-        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Deletar(System.Int32)">
-            <summary>
-            Deletar
-            </summary>
-            <returns>Verdadeiro ou Falso</returns>
-        </member>
-        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Novo(NFCE.API.Models.ComprasProdutoModel)">
-            <summary>
-            Novo Registro
-            </summary>
-            <param name="modelo">Modelo de Emissor</param>
-            <returns>Identificação do Registro adicionado</returns>
-        </member>
-        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Atualizar(NFCE.API.Models.ComprasProdutoModel)">
-            <summary>
-            Atualizar
-            </summary>
-            <returns>Verdadeiro ou Falso</returns>
-        </member>
-        <member name="M:NFCE.API.Controllers.ComprasProdutoController.Listar(NFCE.API.Models.Request.ComprasProdutoListarRequest)">
+        <member name="M:NFCE.API.Controllers.ComprasController.Listar(NFCE.API.Models.Request.ComprasProdutoListarRequest)">
             <summary>
             Listar
             </summary>
             <returns>Listagem das listas de comptas</returns>
         </member>
-        <member name="M:NFCE.API.Controllers.ComprasProdutoController.ListarProdutos(NFCE.API.Models.Request.ProdutoListarRequest)">
+        <member name="M:NFCE.API.Controllers.ComprasController.ListarProdutos(NFCE.API.Models.Request.ProdutoListarRequest)">
             <summary>
             Listar
             </summary>
@@ -745,6 +756,12 @@
             Consultar por produto
             </summary>
             <returns>Modelo de Consulta</returns>
+        </member>
+        <member name="M:NFCE.API.Services.SaldosService.Salvar(NFCE.API.Models.ItemModel,System.Int32)">
+            <summary>
+            Procedimento para Salvar saldos
+            </summary>
+            <returns>Sucesso do procedimento</returns>
         </member>
         <member name="M:NFCE.API.Services.SaldosService.AtualizarSaldos(System.Int32)">
             <summary>

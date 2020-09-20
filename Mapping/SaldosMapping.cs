@@ -12,6 +12,7 @@ namespace NFCE.API.Mapping
             Map(x => x.IdEmissor).ToColumn("ID_EMISSOR", false);
             Map(x => x.ValorUnitario).ToColumn("VLR_UN", false);
             Map(x => x.DataInsercao).ToColumn("DATA_INSERCAO", false);
+            Map(x => x.Ultimo).ToColumn("ULTIMO", false);
         }
     }
 }
