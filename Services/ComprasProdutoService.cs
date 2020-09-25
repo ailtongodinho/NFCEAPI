@@ -15,10 +15,12 @@ namespace NFCE.API.Services
     {
         private readonly IComprasProdutoRepository _ComprasProdutoRepository;
         private readonly IProdutoService _produtoService;
-        public ComprasProdutoService(IComprasProdutoRepository ComprasProdutoRepository, IProdutoService produtoService)
+        private readonly IEmissorService _emissorService;
+        public ComprasProdutoService(IComprasProdutoRepository ComprasProdutoRepository, IProdutoService produtoService, IEmissorService emissorService)
         {
             _ComprasProdutoRepository = ComprasProdutoRepository;
             _produtoService = produtoService;
+            _emissorService = emissorService;
         }
         #region CRUD
         /// <summary>
@@ -145,6 +147,20 @@ namespace NFCE.API.Services
                 }
             }
             return retorno;
+        }
+        public IEnumerable<ComprasCompararResponse> Comparar(int idCompra)
+        {
+            var produtos = _ComprasProdutoRepository.CompararEmissores(idCompra);
+            var emissores = produtos
+                .GroupBy(x => x.Saldo.IdEmissor)
+                .Select(x =>
+                {
+                    return new ComprasCompararResponse {
+                        Emissor = _emissorService.Consultar(x.Key),
+                        Dados = x
+                    };
+                });
+            return emissores;
         }
         #endregion
     }

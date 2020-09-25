@@ -20,6 +20,7 @@ namespace NFCE.API.Interfaces.Services
         IEnumerable<ComprasProdutoModel> ConsultarPorCompra(int IdCompra);
         IEnumerable<ProdutoModel> Listar(ProdutoListarRequest produtoListarRequest);
         bool DeletarPorCompra(int IdCompra);
+        IEnumerable<ComprasCompararResponse> Comparar(int idCompra);
         #endregion
     }
 }

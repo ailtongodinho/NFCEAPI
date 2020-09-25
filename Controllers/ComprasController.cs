@@ -14,7 +14,7 @@ namespace NFCE.API.Controllers
     /// <summary>
     /// Autentificação de usuários
     /// </summary>
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ComprasController : BaseController
@@ -73,10 +73,10 @@ namespace NFCE.API.Controllers
         /// Comparar Compras
         /// </summary>
         /// <returns>Lista de Emissores por Produto</returns>
-        [HttpGet("{id}/Comparar")]
+        [HttpGet("{Id}/Comparar")]
         public ActionResult Comparar(int Id)
         {
-            return Ok();
+            return Ok(_ComprasProdutoService.Comparar(Id));
         }
         #endregion
         #region CRUD Produtos
