@@ -105,7 +105,9 @@ namespace NFCE.API.Services
                             nota = ProcessarNotaFiscal();
                             break;
                         case ExtracaoTiposEnum.CupomFiscal:
-                            nota = ProcessarCupomFiscal();
+                            // nota = ProcessarCupomFiscal();
+                            nota = new NotaModel();
+                            mensagem = "Desculpe, não é possível ler Cupom Fiscal";
                             break;
                     }
                     break;
