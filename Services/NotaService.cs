@@ -103,7 +103,7 @@ namespace NFCE.API.Services
             _NotaRepository.OpenTransaction();
             try
             {
-                if (Existe(modelo)) throw new HttpExceptionHandler(mensagemUsuario: _config.GetValue<string>("Messages:NFCE:Exists"));
+                // if (Existe(modelo)) throw new HttpExceptionHandler(mensagemUsuario: _config.GetValue<string>("Messages:NFCE:Exists"));
                 //  Insere na tabela de Emissor
                 modelo.IdEmissor = _EmissorService.Novo(modelo.Emissor);
                 //  Pega o Id
@@ -111,19 +111,19 @@ namespace NFCE.API.Services
                 //  Atribui as propriedades
                 modelo.Pagamento.IdControle = modelo.Id;
                 //  Insere na tabela de Items
-                Task.Run(() =>
+                // Task.Run(() =>
+                // {
+                modelo.Items.ForEach(x =>
                 {
-                    modelo.Items.ForEach(x =>
+                    x.IdControle = modelo.Id;
+                    x.IdProduto = _ProdutoService.Novo(new ProdutoModel(x)
                     {
-                        x.IdControle = modelo.Id;
-                        x.IdProduto = _ProdutoService.Novo(new ProdutoModel(x)
-                        {
-                            IdEmissor = modelo.IdEmissor
-                        });
-                        _ItemService.Novo(x);
-                        _saldosService.Salvar(x, modelo.IdEmissor);
+                        IdEmissor = modelo.IdEmissor
                     });
-                }).ContinueWith((x) => { x.Dispose(); }, TaskContinuationOptions.OnlyOnRanToCompletion);
+                    _ItemService.Novo(x);
+                    _saldosService.Salvar(x, modelo.IdEmissor);
+                });
+                // }).ContinueWith((x) => { x.Dispose(); }, TaskContinuationOptions.OnlyOnRanToCompletion);
                 //  Insere na tabela de Pagamentos
                 _PagamentoService.Novo(modelo.Pagamento);
                 //  Insere na Saldos

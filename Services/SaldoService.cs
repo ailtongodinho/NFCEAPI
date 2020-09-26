@@ -14,10 +14,10 @@ namespace NFCE.API.Services
     {
         private readonly IConfiguration _config;
         private static ISaldosRepository _saldosRepository;
-        public SaldosService(ISaldosRepository usuarioRepository)
+        public SaldosService(ISaldosRepository saldosRepository)
         {
-            _config = usuarioRepository.GetConfiguration;
-            _saldosRepository = usuarioRepository;
+            _config = saldosRepository.GetConfiguration;
+            _saldosRepository = saldosRepository;
         }
         public SaldosModel Consulta(int Id)
         {
@@ -45,6 +45,7 @@ namespace NFCE.API.Services
         /// <returns>Sucesso do procedimento</returns>
         public bool Salvar(ItemModel item, int idEmissor)
         {
+            bool retorno = true;
             SaldosModel saldo = new SaldosModel()
             {
                 IdProduto = item.IdProduto,
@@ -61,13 +62,17 @@ namespace NFCE.API.Services
                     saldoDB.Ultimo = 0;
                     _saldosRepository.Update(saldoDB);
                 }
-                else return false;
+                else
+                {
+                    retorno = false;
+                }
             }
             //  Insere na base
             saldo.Ultimo = 1;
             saldo.DataInsercao = DateTime.Now;
             _saldosRepository.Insert(saldo);
-            return true;
+
+            return retorno;
         }
         /// <summary>
         /// Procedimento para Atualizar e adicionar novos saldos

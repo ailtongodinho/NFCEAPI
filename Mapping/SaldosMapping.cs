@@ -8,6 +8,7 @@ namespace NFCE.API.Mapping
         public SaldosMapping()
         {
             ToTable("NFCET_SALDOS");
+            Map(x => x.Id).ToColumn("ID", false).IsIdentity();
             Map(x => x.IdProduto).ToColumn("ID_PRODUTO", false);
             Map(x => x.IdEmissor).ToColumn("ID_EMISSOR", false);
             Map(x => x.ValorUnitario).ToColumn("VLR_UN", false);
