@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
+    ".NETCoreApp,Version=v3.1": {
       "Dapper/2.0.30": {
         "type": "package",
         "dependencies": {
@@ -8576,7 +8576,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
+    ".NETCoreApp,Version=v3.1": [
       "Dapper >= 2.0.30",
       "Dapper.FluentMap >= 1.8.0",
       "Dapper.FluentMap.Dommel >= 1.7.0",
@@ -8609,14 +8609,13 @@
         "/home/ailton/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp5.0"
+        "netcoreapp3.1"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "netcoreapp5.0",
+        "netcoreapp3.1": {
           "projectReferences": {}
         }
       },
@@ -8627,8 +8626,7 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "netcoreapp5.0",
+      "netcoreapp3.1": {
         "dependencies": {
           "Dapper": {
             "target": "Package",
@@ -8705,7 +8703,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.404/RuntimeIdentifierGraph.json"
       }
     }
   }
