@@ -22,6 +22,8 @@ using SimpleBrowser;
 using NFCE.API.Models.Extracao;
 using NFCE.API.Models.Response.Extracao;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Http;
+using System.Text;
 
 namespace NFCE.API.Services
 {
@@ -39,6 +41,10 @@ namespace NFCE.API.Services
         private readonly IItemService _ItemService;
         private static Dictionary<string, Browser> HttpHolder = new Dictionary<string, Browser>();
         private string BaseURL => _config.GetValue<string>("NFCE:BaseURL");
+        private string CupomBaseURL => _config.GetValue<string>("Cupom:BaseUrl");
+        private string CupomQuery => _config.GetValue<string>("Cupom:Query");
+        private string CupomPattern => _config.GetValue<string>("Cupom:IdentificarPattern");
+        private string CupomChavePattern => _config.GetValue<string>("Cupom:ChaveAcessoPattern");
         public ExtracaoService(
             INotaRepository NotaRepository,
             INotaService NotaService,
@@ -53,6 +59,7 @@ namespace NFCE.API.Services
             _EmissorService = EmissorService;
             _PagamentoService = PagamentoService;
             _ItemService = ItemService;
+
             //  Browser
             browser = new Browser();
             // we'll fake the user agent for websites that alter their content for unrecognised browsers
@@ -69,7 +76,8 @@ namespace NFCE.API.Services
             if (!ExtracaoRequest.Url.StartsWith(BaseURL))
             {
                 //  Não é uma Nota Fiscal
-                if (Regex.Match(ExtracaoRequest.Url, @"\d+\|\d+\|").Success)
+                // if (Regex.Match(ExtracaoRequest.Url, @"\d+\|\d+\|").Success)
+                if (ExtracaoRequest.Url.StartsWith(CupomBaseURL) || Regex.Match(ExtracaoRequest.Url, CupomPattern).Success)
                 {
                     tipo = ExtracaoTiposEnum.CupomFiscal;
                 }
@@ -106,8 +114,7 @@ namespace NFCE.API.Services
                             break;
                         case ExtracaoTiposEnum.CupomFiscal:
                             // nota = ProcessarCupomFiscal();
-                            nota = new NotaModel();
-                            mensagem = "Desculpe, não é possível ler Cupom Fiscal";
+                            nota = ProcessarCupomFiscalFisico(extracaoRequestModel.ExtracaoFisica);
                             break;
                     }
                     break;
@@ -141,23 +148,155 @@ namespace NFCE.API.Services
 
             return ExtracaoResponse;
         }
+        public string Consultar(string chaveAcesso)
+        {
+            // browser.Navigate($"https://satsp.fazenda.sp.gov.br/COMSAT/Public/ConsultaPublica/ConsultaPublicaCfe.aspx");
+
+            // if (LastRequestFailed(browser)) return null;
+
+            // return browser.CurrentHtml;
+            // var web = new HtmlWeb();
+            // document = web.Load($"https://satsp.fazenda.sp.gov.br/COMSAT/Public/ConsultaPublica/ConsultaPublicaCfe.aspx");
+            // // document = new HtmlDocument();
+            // // document.Load() ();
+            // return document.DocumentNode.InnerHtml;
+
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            // Pass the handler to httpclient(from you are calling api)
+            HttpClient client = new HttpClient(clientHandler);
+
+            var result = client.GetAsync($"https://satsp.fazenda.sp.gov.br/COMSAT/Public/ConsultaPublica/ConsultaPublicaCfe.aspx").Result;
+
+            return result.Content.ReadAsStreamAsync().Result.ToString();
+        }
 
         #region Cupom
         private void ConfigurarCupomFiscal()
         {
             //  Navega até o Site da Nota Fiscal
-            browser.Navigate(_config.GetValue<string>("Cupom:BaseAddress"));
+            // browser.Navigate(_config.GetValue<string>("Cupom:BaseAddress"));
 
-            if (LastRequestFailed(browser)) return;
+            // if (LastRequestFailed(browser)) return;
 
-            var img = browser.Find("img", FindBy.Id, "conteudo_myImage1");
+            // var img = browser.Find("img", FindBy.Id, "conteudo_myImage1");
 
-            ExtracaoResponse.HostKey = Guid.NewGuid().ToString();
+            // ExtracaoResponse.HostKey = Guid.NewGuid().ToString();
 
-            HttpHolder.Add(ExtracaoResponse.HostKey, browser);
+            // HttpHolder.Add(ExtracaoResponse.HostKey, browser);
 
-            ExtracaoResponse.Imagem = img.GetAttribute("src");
-            ExtracaoResponse.Mensagem = "Preencha os dados";
+            // ExtracaoResponse.Imagem = img.GetAttribute("src");
+            // ExtracaoResponse.Mensagem = "Preencha os dados";
+
+            // ....
+
+            ExtracaoResponse.Url = $"{CupomBaseURL}{(string.Format(CupomQuery, Regex.Matches(ExtracaoRequest.Url, CupomChavePattern).FirstOrDefault().ToString()))}";
+            ExtracaoResponse.Mensagem = "Por favor, preencha o Recaptcha";
+        }
+        private NotaModel ProcessarCupomFiscalFisico(ExtracaoAvancadoFisicoModel extracao)
+        {
+            NotaModel nota = new NotaModel();
+
+            if (ExtracaoRequest.ExtracaoFisica == null)
+            {
+                ConfigurarCupomFiscal();
+                return nota;
+            }
+
+            #region Nota
+
+            document = new HtmlDocument();
+            document.LoadHtml(Encoding.UTF8.GetString(Convert.FromBase64String(extracao.Nota)));
+
+            nota = RetornaValorExtracao<NotaModel>(ExtracaoProcessamentoEnum.CupomFiscalAvancado, false).First();
+
+            #endregion
+
+            #region Emissor
+
+            document = new HtmlDocument();
+            document.LoadHtml(Encoding.UTF8.GetString(Convert.FromBase64String(extracao.Emissor)));
+
+            nota.Emissor = RetornaValorExtracao<EmissorModel>(ExtracaoProcessamentoEnum.CupomFiscalAvancado).First();
+
+            #endregion
+
+            #region Pagamento
+
+            document = new HtmlDocument();
+            document.LoadHtml(Encoding.UTF8.GetString(Convert.FromBase64String(extracao.Pagamento)));
+
+            nota.Pagamento = RetornaValorExtracao<PagamentoModel>(ExtracaoProcessamentoEnum.CupomFiscalAvancado).First();
+
+            #endregion            
+
+            #region Itens
+
+            document = new HtmlDocument();
+            document.LoadHtml(Encoding.UTF8.GetString(Convert.FromBase64String(extracao.Itens)));
+
+            Dictionary<int, string> header = new Dictionary<int, string>();
+            Dictionary<int, Dictionary<string, string>> itens_dict = new Dictionary<int, Dictionary<string, string>>();
+
+            var select = new ExtracaoAttribute();
+            select.HtmlTag = "table";
+            select.HtmlId = "conteudo_grvProdutosServicos";
+            foreach (HtmlNode table in document.DocumentNode.SelectNodes(select.FormataXPath(decendente: true)))
+            {
+                select = new ExtracaoAttribute();
+                select.HtmlTag = "tr";
+                int num_linha = 0;
+                foreach (HtmlNode row in table.SelectNodes(select.FormataXPath(decendente: true)))
+                {
+                    if (header.Count == 0)
+                    {
+                        //  Seleciona o Header da Tabela
+                        select.HtmlTag = "th";
+                        var ths = row.SelectNodes(select.FormataXPath(decendente: true));
+                        for (int i = 0; i < ths.Count; i++)
+                        {
+                            header.Add(i, FormataInnerText(ths[i].GetDirectInnerText()));
+                        }
+                    }
+                    else
+                    {
+                        //  Seleciona todas as colunas
+                        select.HtmlTag = "span";
+                        select.AncestorTag = "td";
+                        var itens = new Dictionary<string, string>();
+                        var tds = row.SelectNodes(select.FormataXPath(decendente: true));
+                        for (int i = 0; i < tds?.Count; i++)
+                        {
+                            itens.Add(header.GetValueOrDefault(i), FormataInnerText(tds[i].GetDirectInnerText()));
+                        }
+                        itens_dict.Add(num_linha, itens);
+                        num_linha++;
+                    }
+                }
+            }
+
+            nota.Items = new List<ItemModel>();
+
+            var tipoClasse = typeof(ItemModel);
+            foreach (var dict in itens_dict)
+            {
+                ItemModel item = new ItemModel();
+                foreach (var propriedade in tipoClasse.GetProperties())
+                {
+                    var atributo = tipoClasse.RetornaAtributos<ColumnAttribute>(propriedade.Name).FirstOrDefault();
+                    if (atributo == null) continue;
+                    var valor = dict.Value.GetValueOrDefault(atributo.Name);
+                    //  Insere no item
+                    propriedade.SetValue(item, Convert.ChangeType(valor, propriedade.PropertyType, System.Globalization.CultureInfo.GetCultureInfo("pt-BR")));
+                }
+                nota.Items.Add(item);
+            }
+
+            #endregion
+
+
+            return nota;
         }
         private NotaModel ProcessarCupomFiscal()
         {

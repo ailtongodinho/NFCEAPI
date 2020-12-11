@@ -8,13 +8,14 @@ using System;
 using NFCE.API.Models.Request;
 using NFCE.API.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
+using NFCE.API.Models.Extracao;
 
 namespace NFCE.API.Controllers
 {
     /// <summary>
     /// Autentificação de usuários
     /// </summary>
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ExtracaoController : BaseController
@@ -37,6 +38,17 @@ namespace NFCE.API.Controllers
         public IActionResult Extrair([FromBody] ExtracaoRequest model, [FromServices] IExtracaoService extracaoService)
         {
             return Ok(extracaoService.Processar(Usuario.Id, model));
+        }
+                /// <summary>
+        /// Retorna informações da NFCE de acordo com a URL
+        /// </summary>
+        /// <param name="chave_acesso">Chave de acesso para Nota/Cupom</param>
+        /// <param name="extracaoService">Serviço</param>
+        /// <returns>Infomações extraídas da NFCE</returns>
+        [HttpGet("[action]/{chave_acesso}")]
+        public IActionResult Consultar(string chave_acesso, [FromServices] IExtracaoService extracaoService)
+        {
+            return Ok(extracaoService.Consultar(chave_acesso));
         }
         #endregion
     }

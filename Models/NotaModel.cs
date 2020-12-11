@@ -41,7 +41,7 @@ namespace NFCE.API.Models
                     Pagamento != null && Pagamento.Valido &&
                     Items != null && Items.Count(x => x.Valido) == Items.Count() &&
                     Emissor != null && Emissor.Valido &&
-                    Emissao != null && Emissao > DateTime.MinValue
+                    Emissao > DateTime.MinValue
                 );
             }
         }

@@ -40,6 +40,7 @@ namespace NFCE.API.Models
         public string NCM { get; set; }
         [Column("CFOP")]
         public string CFOP { get; set; }
+        [Column("Cód. GTIN")]
         public string EAN { get; set; }
         public bool Valido
         {

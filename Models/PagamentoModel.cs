@@ -24,6 +24,7 @@ namespace NFCE.API.Models
         [ExtracaoAttribute(Tipo = ExtracaoProcessamentoEnum.CupomFiscalAvancado, HtmlTag = "span", HtmlId = "conteudo_lblValorTroco")]
         [ExtracaoAttribute(Tipo = ExtracaoProcessamentoEnum.NotaFiscalBasico, HtmlTag = "span", HtmlClass = "totalNumb", PrecedingTag = "label", PrecedingText = "Troco", Index = 1, Pattern = ExtracaoPatternsModel.Float)]
         public decimal Troco { get; set; }
+        [ExtracaoAttribute(Tipo = ExtracaoProcessamentoEnum.CupomFiscalAvancado, HtmlTag = "span", HtmlId = "conteudo_lblvalorCFeLei12741")]
         [ExtracaoAttribute(Tipo = ExtracaoProcessamentoEnum.NotaFiscalBasico, HtmlTag = "span", HtmlClass = "totalNumb txtObs", PrecedingTag = "label", PrecedingClass = "txtObs", Index = 1)]
         public decimal TributosTotaisIncidentes { get; set; }
         public bool Valido

@@ -103,7 +103,7 @@ namespace NFCE.API.Services
             _NotaRepository.OpenTransaction();
             try
             {
-                // if (Existe(modelo)) throw new HttpExceptionHandler(mensagemUsuario: _config.GetValue<string>("Messages:NFCE:Exists"));
+                if (Existe(modelo)) throw new HttpExceptionHandler(mensagemUsuario: _config.GetValue<string>("Messages:NFCE:Exists"));
                 //  Insere na tabela de Emissor
                 modelo.IdEmissor = _EmissorService.Novo(modelo.Emissor);
                 //  Pega o Id

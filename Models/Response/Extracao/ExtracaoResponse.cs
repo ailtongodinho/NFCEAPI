@@ -9,6 +9,7 @@ namespace NFCE.API.Models.Response.Extracao
         public DateTime? Emissao { get; set; }
         public int? IdNota { get; set; }
         public string Imagem { get; set; }
+        public string Url { get; set; }
         public bool Sucesso { get; set; }
     }
 }

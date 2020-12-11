@@ -9,5 +9,6 @@ namespace NFCE.API.Interfaces.Services
     public interface IExtracaoService
     {
         object Processar(int idUsuario, ExtracaoRequest extracaoRequestModel);
+        string Consultar(string chaveAcesso);
     }
 }

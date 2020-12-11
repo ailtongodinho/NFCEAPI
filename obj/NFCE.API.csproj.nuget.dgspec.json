@@ -1,29 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj": {}
+    "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj": {}
   },
   "projects": {
-    "/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj": {
+    "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
+        "projectUniqueName": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
         "projectName": "NFCE.API",
-        "projectPath": "/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
-        "packagesPath": "/home/ailtongodinho/.nuget/packages/",
-        "outputPath": "/home/ailtongodinho/sandbox/projetos/tcc/back/NFCE/obj/",
+        "projectPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
+        "packagesPath": "/home/ailton/.nuget/packages/",
+        "outputPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ailtongodinho/.nuget/NuGet/NuGet.Config"
+          "/home/ailton/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp5.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "net5.0": {
+            "targetAlias": "netcoreapp5.0",
             "projectReferences": {}
           }
         },
@@ -34,7 +35,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "net5.0": {
+          "targetAlias": "netcoreapp5.0",
           "dependencies": {
             "Dapper": {
               "target": "Package",
@@ -103,12 +105,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[3.0.0, 3.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -117,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
