@@ -8584,6 +8584,7 @@
       "Log4net >= 2.0.8",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.0.0",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
+      "Microsoft.CodeAnalysis.Analyzers >= 1.1.0",
       "Microsoft.IdentityModel.Tokens >= 5.6.0",
       "Microsoft.OpenApi >= 1.1.4",
       "Npgsql >= 4.1.2",
@@ -8655,6 +8656,10 @@
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
             "version": "[2.2.5, )"
+          },
+          "Microsoft.CodeAnalysis.Analyzers": {
+            "target": "Package",
+            "version": "[1.1.0, )"
           },
           "Microsoft.IdentityModel.Tokens": {
             "target": "Package",
