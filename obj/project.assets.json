@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net5.0": {
       "Dapper/2.0.30": {
         "type": "package",
         "dependencies": {
@@ -8576,7 +8576,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net5.0": [
       "Dapper >= 2.0.30",
       "Dapper.FluentMap >= 1.8.0",
       "Dapper.FluentMap.Dommel >= 1.7.0",
@@ -8584,7 +8584,6 @@
       "Log4net >= 2.0.8",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.0.0",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
-      "Microsoft.CodeAnalysis.Analyzers >= 1.1.0",
       "Microsoft.IdentityModel.Tokens >= 5.6.0",
       "Microsoft.OpenApi >= 1.1.4",
       "Npgsql >= 4.1.2",
@@ -8610,13 +8609,14 @@
         "/home/ailton/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "netcoreapp5.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "netcoreapp5.0",
           "projectReferences": {}
         }
       },
@@ -8627,7 +8627,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
+      "net5.0": {
+        "targetAlias": "netcoreapp5.0",
         "dependencies": {
           "Dapper": {
             "target": "Package",
@@ -8656,10 +8657,6 @@
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
             "version": "[2.2.5, )"
-          },
-          "Microsoft.CodeAnalysis.Analyzers": {
-            "target": "Package",
-            "version": "[1.1.0, )"
           },
           "Microsoft.IdentityModel.Tokens": {
             "target": "Package",
@@ -8708,7 +8705,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.404/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }
