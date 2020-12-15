@@ -8599,9 +8599,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
-      "projectName": "NFCE.API",
-      "projectPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
+      "projectUniqueName": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.csproj",
+      "projectName": "NFCE",
+      "projectPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.csproj",
       "packagesPath": "/home/ailton/.nuget/packages/",
       "outputPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/obj/",
       "projectStyle": "PackageReference",
@@ -8609,14 +8609,14 @@
         "/home/ailton/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp5.0"
+        "net5.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
-          "targetAlias": "netcoreapp5.0",
+          "targetAlias": "net5.0",
           "projectReferences": {}
         }
       },
@@ -8628,7 +8628,7 @@
     },
     "frameworks": {
       "net5.0": {
-        "targetAlias": "netcoreapp5.0",
+        "targetAlias": "net5.0",
         "dependencies": {
           "Dapper": {
             "target": "Package",
