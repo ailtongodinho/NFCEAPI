@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: ASPNETCORE_URLS=http://*:$PORT dotnet out/NFCE.API.dll
+  web: ASPNETCORE_URLS=http://*:$PORT dotnet NFCE.API.dll
