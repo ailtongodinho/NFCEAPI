@@ -8599,9 +8599,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.csproj",
-      "projectName": "NFCE",
-      "projectPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.csproj",
+      "projectUniqueName": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
+      "projectName": "NFCE.API",
+      "projectPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/NFCE.API.csproj",
       "packagesPath": "/home/ailton/.nuget/packages/",
       "outputPath": "/home/ailton/sandbox/projetos/tcc/back/NFCE/obj/",
       "projectStyle": "PackageReference",
